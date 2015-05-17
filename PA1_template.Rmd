@@ -103,7 +103,7 @@ median2 - median2
   The new mean of total steps taken per day is the same as that of the old mean and the new median of total steps taken per day is greater than that of the old median.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-** Q1: Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.**
+**Q1: Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.**
 ```{r echo = TRUE}
 New_Data$weekdays <- factor(format(New_Data$date, "%A"))
 levels(New_Data$weekdays) <- list(weekday = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
@@ -113,4 +113,11 @@ levels(New_Data$weekdays)
 
 **Q2: Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).**
 ```{r echo = TRUE}
+AvgSteps <- aggregate(New_Data$steps, 
+            list(interval = as.numeric(as.character(New_Data$interval)), weekdays = New_Data$weekdays), FUN = mean)
+names(AvgSteps)[3] <- "Mean_Of_Steps"
+
+library(lattice)
+xyplot(AvgSteps$Mean_Of_Steps ~ AvgSteps$interval | AvgSteps$weekdays, layout = c(1, 2), type = "l", 
+       xlab = "Interval", ylab = "Number of steps")
 ```
