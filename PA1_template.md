@@ -11,23 +11,7 @@ output:
 
 ```r
 data <- read.csv("activity.csv", header = T)
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'activity.csv': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 data$date <- as.Date(data$date, format = "%Y-%m-%d")
-```
-
-```
-## Error in data$date: object of type 'closure' is not subsettable
 ```
 
 ## What is mean total number of steps taken per day?
@@ -36,18 +20,7 @@ data$date <- as.Date(data$date, format = "%Y-%m-%d")
 
 ```r
 numOfStepsPerDay <- aggregate(data$steps, by = list(data$date), FUN = "sum")
-```
-
-```
-## Error in data$steps: object of type 'closure' is not subsettable
-```
-
-```r
 colnames(numOfStepsPerDay) <- c("Date", "Total_Steps")
-```
-
-```
-## Error in colnames(numOfStepsPerDay) <- c("Date", "Total_Steps"): object 'numOfStepsPerDay' not found
 ```
 
 **Q2: Make a histogram of the total number of steps taken each day**
@@ -59,82 +32,45 @@ ggplot(numOfStepsPerDay, aes(Total_Steps)) +
 	labs(title = "Histogram of Total steps per Day", x = "Total steps per Day")
 ```
 
-```
-## Error in ggplot(numOfStepsPerDay, aes(Total_Steps)): object 'numOfStepsPerDay' not found
-```
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 **Q3: Calculate and report the mean and median of the total number of steps taken per day**
 * Mean of the total number of steps taken per day
 
 ```r
 mean1 <- mean(numOfStepsPerDay$Total_Steps, na.rm = T)
-```
-
-```
-## Error in mean(numOfStepsPerDay$Total_Steps, na.rm = T): object 'numOfStepsPerDay' not found
-```
-
-```r
 mean1
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'mean1' not found
+## [1] 10766.19
 ```
 
 * Median of the total number of steps taken per day
 
 ```r
 median1 <- median(numOfStepsPerDay$Total_Steps, na.rm = T)
-```
-
-```
-## Error in median(numOfStepsPerDay$Total_Steps, na.rm = T): object 'numOfStepsPerDay' not found
-```
-
-```r
 median1
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'median1' not found
+## [1] 10765
 ```
 ## What is the average daily activity pattern?
 **Q1: Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)**
 
 ```r
 dataWithOutNAs <- data[!is.na(data$steps), ]
-```
 
-```
-## Error in data$steps: object of type 'closure' is not subsettable
-```
-
-```r
 Interval_Means <- aggregate(dataWithOutNAs$steps, by = list(dataWithOutNAs$interval), FUN = mean)
-```
-
-```
-## Error in aggregate(dataWithOutNAs$steps, by = list(dataWithOutNAs$interval), : object 'dataWithOutNAs' not found
-```
-
-```r
 colnames(Interval_Means) <- c("Time_Interval", "Mean_Steps")
-```
 
-```
-## Error in colnames(Interval_Means) <- c("Time_Interval", "Mean_Steps"): object 'Interval_Means' not found
-```
-
-```r
 ggplot(Interval_Means, aes(x = Time_Interval, y = Mean_Steps)) +
 	geom_line() + 
 	labs(title = "Time Series plot", x = "5-minute interval", y = "Average Number of Steps")
 ```
 
-```
-## Error in ggplot(Interval_Means, aes(x = Time_Interval, y = Mean_Steps)): object 'Interval_Means' not found
-```
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 **Q2: Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?**
 
 ```r
@@ -142,7 +78,7 @@ Interval_Means[Interval_Means$Mean_Steps == max(Interval_Means$Mean_Steps), ]$Ti
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'Interval_Means' not found
+## [1] 835
 ```
 ## Imputing missing values
 **Q1: Calculate and report the total number of missing values in the dataset**
@@ -152,7 +88,7 @@ sum(is.na(data$steps))
 ```
 
 ```
-## Error in data$steps: object of type 'closure' is not subsettable
+## [1] 2304
 ```
 
 **Q2: Devise a strategy for filling in all of the missing values in the dataset.**
@@ -169,55 +105,25 @@ for (i in 1:nrow(New_Data)) {
 }
 ```
 
-```
-## Error in 1:nrow(New_Data): argument of length 0
-```
-
 **Q4: Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.**
 * A: Make a histogram of the total number of steps taken each day.
 
 ```r
 numOfStepsPerDayNoNAs <- aggregate(New_Data$steps, by = list(New_Data$date), FUN = sum)
-```
-
-```
-## Error in New_Data$steps: object of type 'closure' is not subsettable
-```
-
-```r
 colnames(numOfStepsPerDayNoNAs) <- c("Date", "Total_Steps")
-```
 
-```
-## Error in colnames(numOfStepsPerDayNoNAs) <- c("Date", "Total_Steps"): object 'numOfStepsPerDayNoNAs' not found
-```
-
-```r
 library(ggplot2)
 ggplot(numOfStepsPerDayNoNAs , aes(Total_Steps)) + 
 	geom_histogram(binwidth = 1000, fill = "steelblue", color = "black") +
 	labs(title = "Histogram of Total steps per Day", x = "Total steps per Day")
 ```
 
-```
-## Error in ggplot(numOfStepsPerDayNoNAs, aes(Total_Steps)): object 'numOfStepsPerDayNoNAs' not found
-```
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
 * B: Calculate and report the mean and median total number of steps taken per day.
 
 ```r
 mean2 <- mean(numOfStepsPerDayNoNAs$Total_Steps)
-```
-
-```
-## Error in mean(numOfStepsPerDayNoNAs$Total_Steps): object 'numOfStepsPerDayNoNAs' not found
-```
-
-```r
 median2 <- median(numOfStepsPerDayNoNAs$Total_Steps)
-```
-
-```
-## Error in median(numOfStepsPerDayNoNAs$Total_Steps): object 'numOfStepsPerDayNoNAs' not found
 ```
 
 * C: Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -229,7 +135,7 @@ mean2 - mean1
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'mean2' not found
+## [1] 0
 ```
 
 ```r
@@ -237,7 +143,7 @@ median2 - median1
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'median2' not found
+## [1] 1.188679
 ```
   The new mean of total steps taken per day is the same as that of the old mean and the new median of total steps taken per day is greater than that of the old median.
 
@@ -246,27 +152,13 @@ median2 - median1
 
 ```r
 New_Data$weekdays <- factor(format(New_Data$date, "%A"))
-```
-
-```
-## Error in New_Data$date: object of type 'closure' is not subsettable
-```
-
-```r
 levels(New_Data$weekdays) <- list(weekday = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
                                  weekend = c("Saturday", "Sunday"))
-```
-
-```
-## Error in `*tmp*`$weekdays: object of type 'closure' is not subsettable
-```
-
-```r
 levels(New_Data$weekdays)
 ```
 
 ```
-## Error in New_Data$weekdays: object of type 'closure' is not subsettable
+## [1] "weekday" "weekend"
 ```
 
 **Q2: Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).**
@@ -274,26 +166,11 @@ levels(New_Data$weekdays)
 ```r
 AvgSteps <- aggregate(New_Data$steps, 
             list(interval = as.numeric(as.character(New_Data$interval)), weekdays = New_Data$weekdays), FUN = mean)
-```
-
-```
-## Error in New_Data$steps: object of type 'closure' is not subsettable
-```
-
-```r
 names(AvgSteps)[3] <- "Mean_Of_Steps"
-```
 
-```
-## Error in names(AvgSteps)[3] <- "Mean_Of_Steps": object 'AvgSteps' not found
-```
-
-```r
 library(lattice)
 xyplot(AvgSteps$Mean_Of_Steps ~ AvgSteps$interval | AvgSteps$weekdays, layout = c(1, 2), type = "l", 
        xlab = "Interval", ylab = "Number of steps")
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'AvgSteps' not found
-```
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
