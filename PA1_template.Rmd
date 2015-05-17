@@ -98,7 +98,7 @@ median2 <- median(numOfStepsPerDayNoNAs$Total_Steps)
   Compare the mean and median for before and after imputing missing data:
 ```{r echo = TRUE}
 mean2 - mean1
-median2 - median2
+median2 - median1
 ```
   The new mean of total steps taken per day is the same as that of the old mean and the new median of total steps taken per day is greater than that of the old median.
 
