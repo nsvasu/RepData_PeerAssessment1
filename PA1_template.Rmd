@@ -32,12 +32,14 @@ ggplot(numOfStepsPerDay, aes(Total_Steps)) +
 **Q3: Calculate and report the mean and median of the total number of steps taken per day**
 * Mean of the total number of steps taken per day
 ```{r echo = TRUE}
-mean(numOfStepsPerDay$Total_Steps, na.rm = T)
+mean1 <- mean(numOfStepsPerDay$Total_Steps, na.rm = T)
+mean1
 ```
 
 * Median of the total number of steps taken per day
 ```{r echo = TRUE}
-median(numOfStepsPerDay$Total_Steps, na.rm = T)
+median1 <- median(numOfStepsPerDay$Total_Steps, na.rm = T)
+median1
 ```
 ## What is the average daily activity pattern?
 **Q1: Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)**
@@ -87,12 +89,17 @@ ggplot(numOfStepsPerDayNoNAs , aes(Total_Steps)) +
 ```
 * B: Calculate and report the mean and median total number of steps taken per day.
 ```{r echo = TRUE}
-mean(numOfStepsPerDayNoNAs$Total_Steps)
-median(numOfStepsPerDayNoNAs$Total_Steps)
+mean2 <- mean(numOfStepsPerDayNoNAs$Total_Steps)
+median2 <- median(numOfStepsPerDayNoNAs$Total_Steps)
 ```
 
 * C: Do these values differ from the estimates from the first part of the assignment?
-Mean is same but Median is different.
+ Compare the mean and median for before and after imputing missing data:
+```{r echo = TRUE}
+mean2 - mean1
+median2 - median2
+```
+ The new mean of total steps taken per day is the same as that of the old mean and the new median of total steps taken per day is greater than that of the old median.
 
 * D: What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
